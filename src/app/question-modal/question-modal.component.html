@@ -1,0 +1,27 @@
+<h1 mat-dialog-title class="dialog-title">{{data.MainQuestion ? 'Editar Pregunta' : 'Agregar Pregunta'}}</h1>
+<div mat-dialog-content class="dialog-content">
+  <form [formGroup]="questionForm">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Pregunta Principal</mat-label>
+      <input matInput formControlName="MainQuestion">
+    </mat-form-field>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Respuesta</mat-label>
+      <input matInput formControlName="Answer">
+    </mat-form-field>
+    <div formArrayName="Questions" *ngFor="let Question of Questions.controls; let i = index" class="alternative-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Alternativa {{i + 1}}</mat-label>
+        <input matInput [formControlName]="i">
+      </mat-form-field>
+      <button mat-icon-button color="warn" (click)="removeQuestions(i)" aria-label="Eliminar Alternativa">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <button mat-button color="primary" (click)="addQuestions()" class="add-alternative-button">+ Alternativa</button>
+  </form>
+</div>
+<div mat-dialog-actions class="dialog-actions">
+  <button mat-button (click)="dialogRef.close()">Cancelar</button>
+  <button mat-button color="primary" (click)="save()">Guardar Cambios</button>
+</div>

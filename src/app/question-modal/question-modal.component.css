@@ -1,0 +1,44 @@
+.dialog-title {
+    background-color: #3f51b5;
+    color: white;
+    padding: 2em;
+    margin: -24px -24px 24px -24px;
+    font-size: 20px;
+  }
+  
+  .dialog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 16px 24px;
+    width: 100%;
+  }
+  
+  .full-width {
+    width: 100%;
+  }
+  
+  .alternative-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .add-alternative-button {
+    margin-top: 16px;
+    align-self: flex-start;
+  }
+  
+  .dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding: 8px 24px;
+  }
+  
+  button[mat-icon-button] {
+    height: 36px;
+    width: 36px;
+  }
+  
+  

@@ -1,0 +1,20 @@
+<h1 style="font-weight: bold;" mat-dialog-title>{{ data.MainQuestion ? 'Detalle de la Pregunta' : 'Agregar Pregunta' }}</h1>
+<div mat-dialog-content class="dialog-content">
+  <section>
+    <h2>Pregunta Principal</h2>
+    <p>{{data.MainQuestion}}</p>
+  </section>
+  <section>
+    <h2>Respuesta</h2>
+    <p class="wrap-text">{{data.Answer}}</p>
+  </section>
+  <section>
+    <h2>Alternativas</h2>
+    <ul>
+      <li *ngFor="let question of data.Questions">{{question}}</li>
+    </ul>
+  </section>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="dialogRef.close()">Cerrar</button>
+</div>

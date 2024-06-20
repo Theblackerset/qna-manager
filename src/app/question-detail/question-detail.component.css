@@ -1,0 +1,56 @@
+.dialog-content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 16px 24px;
+  font-family: 'Arial', sans-serif;
+  color: #333;
+}
+
+.dialog-content section {
+  background-color: #f9f9f9;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dialog-content h2 {
+  margin-bottom: 8px;
+  color: #3f51b5;
+  font-size: 1.2em;
+  border-bottom: 2px solid #3f51b5;
+  padding-bottom: 4px;
+}
+
+.wrap-text {
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  word-break: break-word;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+
+.dialog-content ul {
+  padding-left: 20px;
+}
+
+.dialog-content li {
+  margin-bottom: 8px;
+  font-size: 1em;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 24px;
+  border-top: 1px solid #ddd;
+}
+
+button.mat-button {
+  color: #3f51b5;
+  font-weight: bold;
+}
+
+button.mat-button:hover {
+  background-color: rgba(63, 81, 181, 0.1);
+}
