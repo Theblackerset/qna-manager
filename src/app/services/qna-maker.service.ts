@@ -17,6 +17,7 @@ export interface Question {
 })
 export class QnaMakerService {
   private endpointAdd = environment.webApp.url+"/Add";
+  private endpointUpdate = environment.webApp.url+"/replace";
   private endpointGet = environment.webApp.url+"/Questions";
   private endpointDelete = environment.webApp.url+"/delete/";
   private httpOptions = {
@@ -30,7 +31,7 @@ export class QnaMakerService {
     return this.http.patch<Question>(this.endpointAdd, question);
   }
   updateQuestion(question: Question): Observable<Question> {
-    return this.http.patch<Question>(this.endpointAdd, question);
+    return this.http.patch<Question>(this.endpointUpdate, question);
   }
   getQuestions(): Observable<Question[]> {
     return this.http.get<Question[]>(this.endpointGet);

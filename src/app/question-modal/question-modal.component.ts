@@ -25,8 +25,7 @@ export class QuestionModalComponent {
     private fb: FormBuilder
   ) {
     this.questionForm = this.fb.group({
-      Id: "1",
-      
+      Id: [data.Id] || "1",
       MainQuestion: [data.MainQuestion],
       Answer: [data.Answer],
       Questions: this.fb.array(data.Questions ? data.Questions.map(alt => this.fb.control(alt)) : []),

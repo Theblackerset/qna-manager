@@ -7,6 +7,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { QuestionDetailComponent } from '../question-detail/question-detail.component';
 import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-qna-list',
@@ -23,9 +24,25 @@ export class QnaListComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private qnAMakerService: QnaMakerService, public dialog: MatDialog) { }
+  constructor(private qnAMakerService: QnaMakerService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
 
   ngOnInit() : void{
+    this.qnAMakerService.getQuestions().subscribe({
+      next: (data: Question[]) => {
+        this.questions = data;
+        this.dataSource = new MatTableDataSource(this.questions)
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+      },
+      error: (err) => {
+        console.error('Error fetching questions', err);
+      }
+    });
+  }
+
+  loadQuestions(): void {
+    this.isLoading = true;
+    setTimeout(() => {
       this.qnAMakerService.getQuestions().subscribe({
         next: (data: Question[]) => {
           this.questions = data;
@@ -37,18 +54,9 @@ export class QnaListComponent implements OnInit {
           console.error('Error fetching questions', err);
         }
       });
-  }
-
-  loadQuestions(): void {
-    this.qnAMakerService.getQuestions().subscribe({
-      next: (data: Question[]) => {
-        this.questions = data;
-        this.dataSource = new MatTableDataSource(this.questions)
-      },
-      error: (err) => {
-        console.error('Error fetching questions', err);
-      }
-    });
+      this.isLoading = false;
+      this.showSuccessMessage('Cambios guardados exitosamente');
+    }, 7500); // Simula un retraso de 2 segundos
   }
 
   openModal(question?: Question): void {
@@ -60,11 +68,9 @@ export class QnaListComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         if (result.Id) {
-          this.isLoading = true;
-            this.qnAMakerService.updateQuestion(result).subscribe(() => this.loadQuestions());
+          this.qnAMakerService.updateQuestion(result).subscribe(() => this.loadQuestions());
         } else {
-          this.isLoading = true;
-            this.qnAMakerService.addQuestion(result).subscribe(() => this.loadQuestions());
+          this.qnAMakerService.addQuestion(result).subscribe(() => this.loadQuestions());
         }
       }
     });
@@ -84,9 +90,7 @@ export class QnaListComponent implements OnInit {
   }
 
   deleteQuestion(id : string) : void{
-    this.isLoading = true;
       this.qnAMakerService.deleteQuestion(id).subscribe(() => this.loadQuestions());
-      this.isLoading = false;
   }
 
   applyFilter(event: Event) {
@@ -101,6 +105,15 @@ export class QnaListComponent implements OnInit {
     this.dialog.open(QuestionDetailComponent, {
       width: '600px',
       data: element
+    });
+  }
+
+  showSuccessMessage(message: string): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000, // Duración en milisegundos
+      horizontalPosition: 'center', // Posición horizontal
+      verticalPosition: 'bottom', // Posición vertical
+      panelClass: ['success-snackbar'] // Clase CSS personalizada para estilos
     });
   }
 }

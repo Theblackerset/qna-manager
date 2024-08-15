@@ -229,3 +229,17 @@
 .mat-cell {
   text-align: left;
 }
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px; /* Ajusta según sea necesario */
+}
+
+.success-snackbar {
+  background-color: #4caf50; /* Color verde para indicar éxito */
+  color: white;
+  font-size: 16px;
+  text-align: center;
+}
